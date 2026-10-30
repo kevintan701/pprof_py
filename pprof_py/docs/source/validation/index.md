@@ -7,7 +7,7 @@ kinds of evidence, kept separate because they answer different questions.
 | Evidence | Question it answers | Where |
 |---|---|---|
 | **Package test suite** (1,268 tests) | Does the code still match the frozen R outputs committed under `tests/data/`? | runs on every push (`.github/workflows/tests.yml`) |
-| **Live comparisons** on synthetic data | Do the R package and `pprof_py`, run side by side on the same machine and the same input, compute the same numbers for every provider? | {doc}`logistic_fixed_effect`; the survival family in {doc}`../survival/VALIDATION_REPORT` |
+| **Live comparisons** on synthetic data | Do the R packages and `pprof_py`, run side by side on the same machine and the same input, compute the same numbers for every provider? | {doc}`logistic_fixed_effect` (`pprof::logis_fe()`, and the patient-clustered tests against `pprofR`); the survival family in {doc}`../survival/VALIDATION_REPORT` |
 
 The frozen outputs pin the code to one R run (and were themselves regenerated on a second machine, see the {ref}`survival report <survival_validation_refs_repro>`); a live comparison traces every number to a version, a commit, a data hash
 and a call, and is repeated at several data sizes, so it also shows where a difference comes from: a stopping rule, a
@@ -67,7 +67,7 @@ providers, do not. The reasoning behind the new default is in {ref}`the changelo
 
 | Family | Live comparison | Package tests against frozen R output |
 |---|---|---|
-| Logistic fixed effect | yes ({doc}`logistic_fixed_effect`) | SerBIN (`tests/data/serbin_r`), summary (`logis_fe_summary_r`), AOH; the four patient-clustered tests against pprofR 0.2.0 (`r_reference/pprofr_clustered_*`) |
+| Logistic fixed effect | yes ({doc}`logistic_fixed_effect`): `pprof::logis_fe()` on the example data and five benchmark sizes; the four patient-clustered tests against `pprofR` on five clustered cohorts up to 5 M rows ({ref}`section <validation_logistic_clustered>`) | SerBIN (`tests/data/serbin_r`), summary (`logis_fe_summary_r`), AOH; the four patient-clustered tests against pprofR 0.2.0 (`r_reference/pprofr_clustered_*`) |
 | Logistic random effect / three-stage | planned | `tests/data/three_stage`, `re_profile` |
 | Linear fixed / random effect | planned | linear tests (statsmodels, lme4 one-off checks) |
 | Penalized and group lasso | planned (λ path against `grplasso`) | `tests/data/cox_group_lasso`, `provider_group_lasso` |
